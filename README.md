@@ -141,4 +141,4 @@ Tables: `companies`, `people`, `person_identities`, `relationship_edges`, `fit_s
 
 ## Design
 
-The look and the rules for new UI are in [STYLE.md](STYLE.md).
+The look and the rules for new UI are in [`.cursor/rules/style.mdc`](.cursor/rules/style.mdc). Cursor loads that file when working on pages and components.

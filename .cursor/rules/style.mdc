@@ -1,3 +1,9 @@
+---
+description: UI style for pages, components, and copy
+globs: app/**/*.{tsx,css},components/**/*.tsx,lib/**/*.ts
+alwaysApply: false
+---
+
 # Style guide
 
 Rules for UI changes. The app is dense and quiet: small controls, hairline borders, almost no shadow. It is light mode only; the `.dark` tokens stay in `app/globals.css` so dark mode can be added later, but nothing sets a `dark` class.
