@@ -1,0 +1,67 @@
+# Style guide
+
+Rules for UI changes. The app is dense and quiet: small controls, hairline borders, almost no shadow. It is light mode only; the `.dark` tokens stay in `app/globals.css` so dark mode can be added later, but nothing sets a `dark` class.
+
+## Stack
+
+| Piece      | What we use                                                                                                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------------ |
+| Framework  | Next.js App Router, React 19                                                                                       |
+| CSS        | Tailwind CSS 4 (`@import "tailwindcss"`, no config file), `tw-animate-css`                                         |
+| Components | shadcn, style `base-nova`, built on **Base UI** (`@base-ui/react`), not Radix. Primitives live in `components/ui/` |
+| Icons      | `lucide-react`. Network logos come from `PlatformIcon`; people and companies get `Initials` tiles                  |
+| Helpers    | `cn()` in `lib/utils.ts` (`clsx` and `tailwind-merge`), `class-variance-authority` for variants                    |
+
+Add a primitive with `npx shadcn@latest add <name>`, then swap any icon import to `lucide-react` and keep the sizing below.
+
+## Fonts
+
+Loaded in `app/layout.tsx` with `next/font/google`: **Inter** for body (`font-sans`), **Plus Jakarta Sans** for headings (`font-heading`, applied to every `h1` to `h6`), **IBM Plex Mono** for code (`font-mono`). The body's letter spacing and font features are set in `globals.css`; do not override them.
+
+## Colour
+
+Neutral greys and one brand accent, all as `oklch` tokens in `app/globals.css`. Use the token classes (`bg-muted`, `text-muted-foreground`, `border-border`), never raw greys or hex.
+
+- `primary` is near-black: default buttons and checked boxes.
+- `muted-foreground` is for secondary text, hints and table headers.
+- `destructive` is for errors; tint backgrounds with `/10`.
+- `brand` (orange) is only the logo tile and initials tiles.
+- Status tints are the only other colours, in `lib/format.ts` (`RECOMMENDATION_CLASS`): green for Ask for intro, amber for Maybe, grey for Skip. Reuse them; do not add new status colours.
+
+## Shape and density
+
+- Radius is `0.5rem`. Controls and cards use `rounded-md`, dialogs `rounded-lg`, badges are pills.
+- Buttons, inputs and selects are **`h-7`** with **13px** text. Hints and table meta are `text-xs`.
+- No shadows on cards, buttons or inputs. Only popovers and dialogs get one.
+- Borders are hairlines: `border-border/70` on inputs, `border-border/50` on page chrome.
+- Numbers in tables use `tabular-nums` and sit right-aligned.
+
+## Layout
+
+Every page is a column under the top bar (`components/app-nav.tsx`): one `PageHeader` and one scrolling `PageBody` (`components/page-header.tsx`). The client page's search box floats at the bottom of the page. Use `PageEmptyState` for an empty page and `Notice` for messages and errors in the place the action happened.
+
+## Components
+
+- **Button:** variants `default`, `outline`, `secondary`, `ghost`, `destructive`, `link`. Put the icon first as a child with no size class. One `default` button per view; everything else `outline` or `ghost`.
+- **Dialog:** `<DialogTrigger render={<Button />}>`. Default width is `sm:max-w-sm`; widen with `sm:max-w-xl` (the `sm:` prefix is required).
+- **Select:** pass `items` to the root so the trigger shows the label, not the raw value. Values must be strings. See `components/filter-bar.tsx`.
+- **Forms:** `FormField` wraps a label, control and hint; `FormError` shows a form-level error.
+- **Table:** 12px muted header cells, `hover:bg-muted/40` rows.
+
+Base UI uses a `render` prop where Radix uses `asChild`:
+
+```tsx
+// Radix: <DialogTrigger asChild><Button>Add</Button></DialogTrigger>
+<DialogTrigger render={<Button />}>Add</DialogTrigger>
+```
+
+## Writing
+
+- Sentence case: "Add client", "Save".
+- Plain words. "Ask for intro", not "outreach recommended".
+- Settings and forms carry titles and fields, not paragraphs of explanation.
+- A loading button keeps its size and swaps the label ("Saving…"). No centered "Loading…" for page content.
+
+## Before you finish
+
+`npm run verify` runs the typecheck, lint, format check and tests. Check the page at 1360px wide and at phone width.

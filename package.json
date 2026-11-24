@@ -1,0 +1,57 @@
+{
+  "name": "intros",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint",
+    "test": "tsx --test \"src/**/*.test.ts\" \"lib/**/*.test.ts\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "verify": "npm run check && npm run lint && npm run format:check && npm test",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/scripts/migrate.ts",
+    "eval": "tsx src/scripts/eval.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.758.0",
+    "@base-ui/react": "^1.9.0",
+    "@tailwindcss/postcss": "^4.3.5",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.45.4",
+    "lucide-react": "^1.78.0",
+    "next": "^16.4.6",
+    "pg": "^8.13.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "shadcn": "^4.23.0",
+    "tailwind-merge": "^3.7.1",
+    "tsx": "^4.19.3",
+    "tw-animate-css": "^1.4.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/pg": "^8.11.11",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "drizzle-kit": "^0.30.5",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.6",
+    "postcss": "^8.5.33",
+    "prettier": "^3.10.1",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^5.8.2"
+  },
+  "description": "Find who your clients should introduce you to."
+}
